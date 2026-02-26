@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
-  <remote  name="aosp" fetch=".." review="https://android-review.googlesource.com/" />
+  <remote  name="aosp" fetch="https://android-review.googlesource.com/" />
+  <remote  name="github" fetch="git@github.com:moto-mediatek-devs/" revision="lineage-23.2" />
+  <remote  name="motoOSS" fetch="https://github.com/MotorolaMobilityLLC/" revision="refs/tags/MMI-VVTA35.51-28-24" />
   <default revision="main-kernel-build-2024" remote="aosp" sync-j="4" />
 
   <superproject name="kernel/superproject" remote="aosp" revision="common-android15-6.6" />
 
-  <project path="build/kernel" name="kernel/build" groups="ddk" >
+  <project path="build/kernel" name="kernel-build-kernel" groups="ddk" remote="motoOSS" >
     <linkfile src="kleaf/bazel.sh" dest="tools/bazel" />
-    <linkfile src="kleaf/bazel.WORKSPACE" dest="WORKSPACE" />
     <linkfile src="kleaf/bzlmod/bazel.MODULE.bazel" dest="MODULE.bazel" />
     <linkfile src="kleaf/bzlmod/bazel.WORKSPACE.bzlmod" dest="WORKSPACE.bzlmod" />
   </project>
+  <project path="build/bazel_mgk_rules" name="bazel_mgk_rules" remote="github" >
+    <linkfile src="kleaf/bazel.WORKSPACE" dest="WORKSPACE" />
+  </project>
   <project path="build/bazel_common_rules" name="platform/build/bazel_common_rules" groups="ddk" />
-  <project path="common" name="kernel/common" revision="android15-6.6" />
+  <project path="kernel-6.6" name="kernel/common" revision="android15-6.6" />
   <!-- Uncomment for local testing only -->
   <!-- project path="kernel/tests" name="kernel/tests" revision="main-kernel" clone-depth="1" / -->
   <project path="kernel/configs" name="kernel/configs" revision="main"/>
@@ -52,4 +56,22 @@
   <project path="external/toybox" name="platform/external/toybox" groups="ddk"/>
   <project path="external/zlib" name="platform/external/zlib" groups="ddk"/>
   <project path="external/zopfli" name="platform/external/zopfli" groups="ddk"/>
+
+  <!-- Motorola kernel -->
+  <project path="kernel_device_modules-6.6" name="android_kernel_motorola_mt6768-6.6-modules" remote="github" >
+    <linkfile src="build.config.lamu" dest="build.config" />
+  </project>
+  <project path="vendor/mediatek/kernel_modules/afs_common_utils" name="vendor-mediatek-kernel_modules-afs_common_utils" remote="motoOSS" />
+  <project path="vendor/mediatek/kernel_modules/connectivity/bt/mt66xx" name="vendor-mediatek-kernel_modules-connectivity-bt-mt66xx" remote="motoOSS" />
+  <project path="vendor/mediatek/kernel_modules/connectivity/common" name="vendor-mediatek-kernel_modules-connectivity-common" remote="motoOSS" />
+  <project path="vendor/mediatek/kernel_modules/connectivity/connfem" name="vendor-mediatek-kernel_modules-connectivity-connfem" remote="motoOSS" />
+  <project path="vendor/mediatek/kernel_modules/connectivity/conninfra" name="vendor-mediatek-kernel_modules-connectivity-conninfra" remote="motoOSS" />
+  <project path="vendor/mediatek/kernel_modules/connectivity/fmradio" name="vendor-mediatek-kernel_modules-connectivity-fmradio" remote="motoOSS" />
+  <project path="vendor/mediatek/kernel_modules/connectivity/gps" name="vendor-mediatek-kernel_modules-connectivity-gps" remote="motoOSS" />
+  <project path="vendor/mediatek/kernel_modules/connectivity/wlan/adaptor" name="vendor-mediatek-kernel_modules-connectivity-wlan-adaptor" remote="motoOSS" />
+  <project path="vendor/mediatek/kernel_modules/connectivity/wlan/core/gen4m" name="vendor-mediatek-kernel_modules-connectivity-wlan-core-gen4m" remote="motoOSS" />
+  <project path="vendor/mediatek/kernel_modules/gpu" name="vendor-mediatek-kernel_modules-gpu" remote="motoOSS" />
+  <project path="vendor/mediatek/kernel_modules/met_drv_v3" name="vendor-mediatek-kernel_modules-met_drv_v3" remote="motoOSS" />
+  <project path="vendor/mediatek/kernel_modules/mtkcam" name="vendor-mediatek-kernel_modules-mtkcam" remote="motoOSS" />
+  <project path="vendor/mediatek/kernel_modules/udc" name="vendor-mediatek-kernel_modules-udc" remote="motoOSS" />
 </manifest>
