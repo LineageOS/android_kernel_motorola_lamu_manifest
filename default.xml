@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
-  <remote  name="aosp" fetch="https://android-review.googlesource.com/" />
-  <remote  name="github" fetch="git@github.com:moto-mediatek-devs/" revision="lineage-23.2" />
+  <remote name="aosp" fetch="https://android-review.googlesource.com/" />
+  <remote name="github"
+     fetch=".."
+     review="review.lineageos.org" />
+
   <default revision="main-kernel-build-2024" remote="aosp" sync-j="4" />
 
   <superproject name="kernel/superproject" remote="aosp" revision="common-android15-6.6" />
@@ -11,7 +14,7 @@
     <linkfile src="kleaf/bzlmod/bazel.MODULE.bazel" dest="MODULE.bazel" />
     <linkfile src="kleaf/bzlmod/bazel.WORKSPACE.bzlmod" dest="WORKSPACE.bzlmod" />
   </project>
-  <project path="build/bazel_mgk_rules" name="android_kernel_build_bazel_mgk_rules" remote="github" >
+  <project path="build/bazel_mgk_rules" name="android_kernel_build_bazel_mgk_rules" remote="github" revision="refs/heads/lineage-23.2" sync-c="true" >
     <linkfile src="kleaf/bazel.WORKSPACE" dest="WORKSPACE" />
   </project>
   <project path="build/bazel_common_rules" name="platform/build/bazel_common_rules" groups="ddk" />
@@ -57,8 +60,8 @@
   <project path="external/zopfli" name="platform/external/zopfli" groups="ddk"/>
 
   <!-- Motorola kernel -->
-  <project path="kernel_device_modules-6.6" name="android_kernel_motorola_lamu-modules" remote="github" >
+  <project path="kernel_device_modules-6.6" name="android_kernel_motorola_lamu-modules" remote="github" revision="refs/heads/lineage-23.2" sync-c="true" >
     <linkfile src="build.config.lamu" dest="build.config" />
   </project>
-  <project path="vendor/mediatek/kernel_modules" name="android_kernel_motorola_lamu-mediatek_modules" remote="github" />
+  <project path="vendor/mediatek/kernel_modules" name="android_kernel_motorola_lamu-mediatek_modules" remote="github" revision="refs/heads/lineage-23.2" sync-c="true" />
 </manifest>
